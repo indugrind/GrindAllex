@@ -2,16 +2,14 @@
 <html lang="pt-BR" class="scroll-smooth">
 <head>
     <!-- Chosen Palette: Industrial Gold -->
-    <!-- Application Structure Plan: A single-page application with a sticky navigation bar for easy access to distinct sections: Hero, Product Features, Applications/Materials, Detailed Structure, and Gallery. This structure guides the user through a logical flow, from a general overview to specific details, enhancing understanding and engagement. The interactive elements, like clickable feature cards and a diagram with hotspots, were chosen to make dense technical information more digestible and engaging than a simple text document. -->
-    <!-- Visualization & Content Choices: Report Info: Product features -> Goal: Inform -> Method: Interactive cards -> Interaction: Click to reveal details -> Justification: More engaging than a static list. | Report Info: Abrasive materials/grains -> Goal: Organize/Guide -> Method: Tabbed content selector -> Interaction: User selects a material to see recommended abrasives -> Justification: Provides a practical, user-driven way to find specific information. | Report Info: Machine components -> Goal: Explore/Explain -> Method: Interactive diagram with hotspots -> Interaction: Click on parts of an image to get descriptions -> Justification: Visually connects technical terms to the physical product, greatly improving comprehension over a text list. No charts were used as the source material is qualitative, making interactive diagrams and text a better fit. Library: Vanilla JS for all interactions. -->
+    <!-- Application Structure Plan: A comprehensive single-page application designed to provide a full business overview. The structure flows from a high-level introduction (Hero) to specifics: Product Details (with interactive model toggle), Market Opportunity (with data charts), Production Process (visual flowchart), the Team (profiles), and Financials (cost chart). This top-down approach allows users to either get a quick overview or dive deep into any aspect of the business, making it a powerful tool for investors, partners, or customers. -->
+    <!-- Visualization & Content Choices: Report Info: Market Growth Data -> Goal: Inform/Impress -> Method: Bar & Line Charts -> Interaction: Hover tooltips -> Justification: Charts provide an immediate, powerful visualization of market potential and trends. | Report Info: Production Workflow -> Goal: Explain/Build Trust -> Method: HTML/CSS Flowchart -> Interaction: Scroll-based highlighting (future enhancement) -> Justification: Visually simplifies a complex process, showing transparency and organization. | Report Info: Team Structure -> Goal: Personalize/Build Credibility -> Method: Profile Cards -> Interaction: Hover effects -> Justification: Puts faces to the names, making the company more relatable. | Report Info: Cost Breakdown -> Goal: Analyze -> Method: Bar Chart -> Interaction: Hover tooltips -> Justification: Clearly shows where investment goes, crucial for financial transparency. Library: Chart.js for all charts, Vanilla JS for interactions. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>InduGrind - Ferramentas Artesanais de Alta Performance</title>
-    <meta name="description" content="Explore a lixadeira de cinta industrial InduGrind. Uma solução eficiente e segura para processos de lixamento, com foco em qualidade superior.">
-    
+    <meta name="description" content="Explore o plano de negócios completo da InduGrind, nossa equipe, processo de produção, análise de mercado e a tecnologia por trás de nossas lixadeiras de cinta industriais.">
     <meta property="og:title" content="InduGrind - Força no Detalhe">
     <meta property="og:description" content="Nossas lixadeiras de cinta industriais oferecem precisão, durabilidade e eficiência.">
     <meta property="og:image" content="http://googleusercontent.com/file_content/3">
@@ -38,37 +36,12 @@
               'brand-secondary': '#4A5568',
               'brand-dark': '#1A202C',
               'brand-light': '#F7FAFC',
+              'brand-accent': '#EDF2F7',
             }
           }
         }
       }
     </script>
-    <style>
-        .hotspot {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: rgba(251, 191, 36, 0.7);
-            border: 2px solid white;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-        .hotspot:hover {
-            transform: scale(1.2);
-            background-color: rgba(251, 191, 36, 1);
-            animation: none;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
-        }
-        .component-info-card {
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-    </style>
 </head>
 <body class="bg-brand-light text-brand-secondary font-sans">
 
@@ -78,10 +51,12 @@
                 <img src="http://googleusercontent.com/file_content/4" alt="Logotipo InduGrind" class="h-8 w-8 mr-2 invert">
                 <a href="#inicio">INDUGRIND</a>
             </div>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#produto" class="hover:text-brand-primary transition-colors">O Produto</a>
-                <a href="#aplicacoes" class="hover:text-brand-primary transition-colors">Aplicações</a>
-                <a href="#estrutura" class="hover:text-brand-primary transition-colors">Estrutura</a>
+            <div class="hidden md:flex items-center space-x-6 text-sm">
+                <a href="#produto" class="hover:text-brand-primary transition-colors">Produto</a>
+                <a href="#mercado" class="hover:text-brand-primary transition-colors">Mercado</a>
+                <a href="#processo" class="hover:text-brand-primary transition-colors">Processo</a>
+                <a href="#equipe" class="hover:text-brand-primary transition-colors">Equipe</a>
+                <a href="#custos" class="hover:text-brand-primary transition-colors">Análise Financeira</a>
                 <a href="#galeria" class="hover:text-brand-primary transition-colors">Galeria</a>
             </div>
             <div class="md:hidden">
@@ -91,9 +66,11 @@
             </div>
         </nav>
         <div id="mobile-menu" class="hidden md:hidden bg-brand-dark">
-            <a href="#produto" class="block text-center py-3 px-4 text-sm hover:bg-gray-700">O Produto</a>
-            <a href="#aplicacoes" class="block text-center py-3 px-4 text-sm hover:bg-gray-700">Aplicações</a>
-            <a href="#estrutura" class="block text-center py-3 px-4 text-sm hover:bg-gray-700">Estrutura</a>
+            <a href="#produto" class="block text-center py-3 px-4 text-sm hover:bg-gray-700">Produto</a>
+            <a href="#mercado" class="block text-center py-3 px-4 text-sm hover:bg-gray-700">Mercado</a>
+            <a href="#processo" class="block text-center py-3 px-4 text-sm hover:bg-gray-700">Processo</a>
+            <a href="#equipe" class="block text-center py-3 px-4 text-sm hover:bg-gray-700">Equipe</a>
+            <a href="#custos" class="block text-center py-3 px-4 text-sm hover:bg-gray-700">Análise Financeira</a>
             <a href="#galeria" class="block text-center py-3 px-4 text-sm hover:bg-gray-700">Galeria</a>
         </div>
     </header>
@@ -106,95 +83,171 @@
             </video>
             <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-brand-dark via-brand-dark/70 to-transparent z-10"></div>
             <div class="relative z-20 p-6 text-center">
-                <h1 class="text-5xl md:text-7xl font-bold font-condensed uppercase mb-4 tracking-wider">Potência e Precisão</h1>
-                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 text-gray-300">A lixadeira de cinta InduGrind é a ferramenta definitiva para acabamentos de nível industrial e artesanal. Robusta, confiável e construída para durar.</p>
-                <a href="#produto" class="bg-brand-primary text-brand-dark font-bold py-4 px-10 rounded-lg text-lg hover:bg-yellow-300 transition-transform transform hover:scale-105 shadow-lg">DESCUBRA OS DETALHES</a>
+                <h1 class="text-5xl md:text-7xl font-bold font-condensed uppercase mb-4 tracking-wider">Força no Detalhe</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 text-gray-300">Oferecemos uma solução eficiente, segura e acessível para processos de lixamento industrial e artesanal, com foco em qualidade superior para profissionais.</p>
+                <a href="#produto" class="bg-brand-primary text-brand-dark font-bold py-4 px-10 rounded-lg text-lg hover:bg-yellow-300 transition-transform transform hover:scale-105 shadow-lg">CONHEÇA A LIXADEIRA</a>
             </div>
         </section>
 
         <section id="produto" class="py-20 px-6 bg-white">
             <div class="container mx-auto">
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold font-condensed text-brand-dark">PROJETADA PARA EXCELÊNCIA</h2>
-                    <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Cada detalhe da InduGrind foi pensado para oferecer a máxima performance. Clique nos pilares abaixo para conhecer a fundo a engenharia por trás da nossa lixadeira.</p>
+                    <h2 class="text-4xl font-bold font-condensed text-brand-dark">NOSSOS MODELOS</h2>
+                    <p class="text-gray-600 mt-2 max-w-3xl mx-auto">Desenvolvemos lixadeiras para cada necessidade, desde o artesão detalhista ao ambiente industrial mais exigente. Selecione um modelo para ver as especificações.</p>
                 </div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="feature-card text-center p-6 border-2 border-transparent rounded-lg cursor-pointer hover:border-brand-primary hover:shadow-xl transition-all" data-feature="qualidade">
-                        <div class="flex justify-center mb-4">
-                           <div class="flex-shrink-0 bg-brand-primary/10 p-4 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg></div>
-                        </div>
-                        <h3 class="font-bold text-xl mb-2 font-condensed">QUALIDADE SUPERIOR</h3>
-                    </div>
-                    <div class="feature-card text-center p-6 border-2 border-transparent rounded-lg cursor-pointer hover:border-brand-primary hover:shadow-xl transition-all" data-feature="inovacao">
-                        <div class="flex justify-center mb-4">
-                           <div class="flex-shrink-0 bg-brand-primary/10 p-4 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2 1M4 7l2-1M4 7v2.5M12 21.5V12M12 12L4 4m0 0l8-4 8 4M4 4v1.5M12 12l8-8m0 0v1.5" /></svg></div>
-                        </div>
-                        <h3 class="font-bold text-xl mb-2 font-condensed">INOVAÇÃO E SEGURANÇA</h3>
-                    </div>
-                     <div class="feature-card text-center p-6 border-2 border-transparent rounded-lg cursor-pointer hover:border-brand-primary hover:shadow-xl transition-all" data-feature="robustez">
-                        <div class="flex justify-center mb-4">
-                            <div class="flex-shrink-0 bg-brand-primary/10 p-4 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg></div>
-                        </div>
-                        <h3 class="font-bold text-xl mb-2 font-condensed">ROBUSTEZ E CONFIANÇA</h3>
+                <div class="flex justify-center mb-8">
+                    <div class="inline-flex rounded-md shadow-sm">
+                        <button id="btn-artesanal" class="px-6 py-2 text-sm font-medium bg-brand-primary text-brand-dark border border-brand-primary rounded-l-lg focus:z-10 focus:ring-2 focus:ring-brand-primary">Modelo Artesanal</button>
+                        <button id="btn-industrial" class="px-6 py-2 text-sm font-medium bg-white text-brand-secondary border-t border-b border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-brand-primary">Modelo Industrial</button>
                     </div>
                 </div>
-                <div id="feature-display" class="mt-10 p-8 bg-brand-light rounded-lg min-h-[150px] flex items-center justify-center transition-all duration-300">
-                    <p class="text-center text-gray-500">Selecione um pilar para ver os detalhes.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="aplicacoes" class="py-20 px-6 bg-brand-light">
-            <div class="container mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold font-condensed text-brand-dark">VERSATILIDADE PARA TODO TRABALHO</h2>
-                    <p class="text-gray-600 mt-2 max-w-3xl mx-auto">A verdadeira força da lixadeira está na cinta de lixa. A escolha do grão e do material abrasivo corretos define o sucesso do seu projeto. Selecione o material que você trabalha para ver nossas recomendações.</p>
-                </div>
-                <div class="flex flex-wrap justify-center gap-4 mb-8">
-                    <button class="material-btn bg-white py-2 px-5 rounded-full shadow-sm hover:bg-brand-primary hover:text-brand-dark font-semibold transition-all" data-material="madeira">Madeira</button>
-                    <button class="material-btn bg-white py-2 px-5 rounded-full shadow-sm hover:bg-brand-primary hover:text-brand-dark font-semibold transition-all" data-material="metais_ferrosos">Metais Ferrosos</button>
-                    <button class="material-btn bg-white py-2 px-5 rounded-full shadow-sm hover:bg-brand-primary hover:text-brand-dark font-semibold transition-all" data-material="nao_ferrosos">Não Ferrosos e Plástico</button>
-                    <button class="material-btn bg-white py-2 px-5 rounded-full shadow-sm hover:bg-brand-primary hover:text-brand-dark font-semibold transition-all" data-material="ceramica">Cerâmica e Ligas Especiais</button>
-                </div>
-                <div id="material-info" class="bg-white p-8 rounded-lg shadow-lg min-h-[200px]">
-                    <h3 id="material-title" class="text-2xl font-condensed font-bold text-brand-dark mb-4">Selecione um Material</h3>
-                    <div id="material-content">
-                        <p class="text-gray-600">As recomendações de abrasivos e granulometria aparecerão aqui.</p>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="w-full">
+                        <img id="product-image" src="http://googleusercontent.com/file_content/1" alt="Lixadeira InduGrind Modelo Artesanal" class="w-full h-auto rounded-lg shadow-xl object-cover">
+                    </div>
+                    <div>
+                        <h3 id="product-title" class="text-3xl font-condensed font-bold text-brand-dark mb-4"></h3>
+                        <p id="product-description" class="text-gray-600 mb-6"></p>
+                        <div id="product-specs" class="grid sm:grid-cols-2 gap-4 text-gray-700"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="estrutura" class="py-20 px-6 bg-white">
+        <section id="mercado" class="py-20 px-6 bg-brand-accent">
             <div class="container mx-auto">
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold font-condensed text-brand-dark">ANATOMIA DA MÁQUINA</h2>
-                    <p class="text-gray-600 mt-2 max-w-3xl mx-auto">Construída com componentes de alta durabilidade, a InduGrind é sinônimo de estabilidade e precisão. Clique nos pontos destacados no diagrama para explorar cada parte da lixadeira.</p>
+                    <h2 class="text-4xl font-bold font-condensed text-brand-dark">OPORTUNIDADE DE MERCADO</h2>
+                    <p class="text-gray-600 mt-2 max-w-3xl mx-auto">O setor de equipamentos artesanais e industriais está em plena expansão, com uma demanda crescente por ferramentas especializadas, eficientes e de alta qualidade.</p>
                 </div>
-                <div class="grid lg:grid-cols-2 gap-8 items-center">
-                    <div class="relative w-full max-w-2xl mx-auto">
-                        <img src="http://googleusercontent.com/file_content/2" alt="Desenho técnico da lixadeira" class="w-full h-auto rounded-lg">
-                        <div class="hotspot" style="top: 35%; left: 78%;" data-component="rolo_acionamento"></div>
-                        <div class="hotspot" style="top: 10%; left: 65%;" data-component="rolo_tensao"></div>
-                        <div class="hotspot" style="top: 55%; left: 50%;" data-component="chassi"></div>
-                        <div class="hotspot" style="top: 45%; left: 15%;" data-component="mesa_trabalho"></div>
-                        <div class="hotspot" style="top: 70%; left: 70%;" data-component="motor_placeholder"></div>
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4 text-center font-condensed">CRESCIMENTO DO MERCADO POR SEGMENTO</h3>
+                        <div class="chart-container" style="position: relative; height:40vh; width:100%; max-width: 600px; margin: auto;">
+                            <canvas id="marketSegmentChart"></canvas>
+                        </div>
                     </div>
-                    <div id="component-info" class="bg-brand-light p-8 rounded-lg shadow-inner min-h-[300px] flex flex-col justify-center">
-                         <div class="component-info-card text-center">
-                            <h3 id="component-title" class="text-2xl font-condensed font-bold text-brand-dark mb-2">Explore os Componentes</h3>
-                            <p id="component-text" class="text-gray-700">Clique em um ponto amarelo no diagrama para ver a descrição do componente aqui.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4 text-center font-condensed">PROJEÇÃO DO MERCADO (EM BILHÕES R$)</h3>
+                         <div class="chart-container" style="position: relative; height:40vh; width:100%; max-width: 600px; margin: auto;">
+                            <canvas id="marketGrowthChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <section id="galeria" class="py-20 px-6 bg-brand-light">
+        <section id="processo" class="py-20 px-6 bg-white">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold font-condensed text-brand-dark">NOSSO PROCESSO DE FABRICAÇÃO</h2>
+                    <p class="text-gray-600 mt-2 max-w-3xl mx-auto">Cada etapa é monitorada com rigoroso controle de qualidade para garantir um produto final de excelência, desde a compra das peças até a inspeção final.</p>
+                </div>
+                <div class="relative">
+                    <div class="hidden md:block absolute top-0 left-1/2 w-0.5 h-full bg-gray-200"></div>
+                    <div class="space-y-12">
+                        <!-- Step 1 -->
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                            <div class="flex justify-center md:justify-end md:pr-8">
+                                <div class="bg-brand-primary text-brand-dark h-16 w-16 rounded-full flex items-center justify-center text-2xl font-bold">1</div>
+                            </div>
+                            <div class="mt-4 md:mt-0 md:pl-8">
+                                <h3 class="text-2xl font-condensed font-bold">Aquisição de Peças</h3>
+                                <p class="text-gray-600 mt-2"><strong>Responsável:</strong> Genilda. <br> Seleção rigorosa de materiais e negociação com os fornecedores mais confiáveis do mercado para garantir a qualidade desde a base.</p>
+                            </div>
+                        </div>
+                        <!-- Step 2 -->
+                         <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                            <div class="flex justify-center md:justify-start md:pl-8 md:order-2">
+                                <div class="bg-brand-primary text-brand-dark h-16 w-16 rounded-full flex items-center justify-center text-2xl font-bold">2</div>
+                            </div>
+                            <div class="mt-4 md:mt-0 md:text-right md:pr-8 md:order-1">
+                                <h3 class="text-2xl font-condensed font-bold">Supervisão e Produção</h3>
+                                <p class="text-gray-600 mt-2"><strong>Responsável:</strong> Wilton. <br> Liderança do processo de fabricação, coordenando a produção e implementando processos para garantir que todos os padrões técnicos sejam seguidos.</p>
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                            <div class="flex justify-center md:justify-end md:pr-8">
+                                <div class="bg-brand-primary text-brand-dark h-16 w-16 rounded-full flex items-center justify-center text-2xl font-bold">3</div>
+                            </div>
+                            <div class="mt-4 md:mt-0 md:pl-8">
+                                <h3 class="text-2xl font-condensed font-bold">Montagem Técnica</h3>
+                                <p class="text-gray-600 mt-2"><strong>Responsável:</strong> Adeilton. <br> Corte, solda e instalação dos componentes com precisão técnica e um alto padrão de acabamento, materializando o projeto.</p>
+                            </div>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                            <div class="flex justify-center md:justify-start md:pl-8 md:order-2">
+                                <div class="bg-brand-primary text-brand-dark h-16 w-16 rounded-full flex items-center justify-center text-2xl font-bold">4</div>
+                            </div>
+                             <div class="mt-4 md:mt-0 md:text-right md:pr-8 md:order-1">
+                                <h3 class="text-2xl font-condensed font-bold">Controle de Qualidade</h3>
+                                <p class="text-gray-600 mt-2"><strong>Responsável:</strong> Patrícia. <br> Testes operacionais e inspeção detalhada de cada lixadeira para garantir perfeição, segurança e conformidade com os padrões InduGrind.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="equipe" class="py-20 px-6 bg-brand-accent">
+            <div class="container mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold font-condensed text-brand-dark">CONHEÇA NOSSA EQUIPE</h2>
+                    <p class="text-gray-600 mt-2 max-w-3xl mx-auto">Profissionais qualificados e apaixonados pelo que fazem, garantindo a excelência em cada etapa, do projeto à entrega.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"><h3 class="font-bold font-condensed text-lg">Alexander</h3><p class="text-sm text-gray-600">Dono da Empresa</p></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"><h3 class="font-bold font-condensed text-lg">Wilton</h3><p class="text-sm text-gray-600">Gerente de Produção</p></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"><h3 class="font-bold font-condensed text-lg">Adeilton</h3><p class="text-sm text-gray-600">Montador Técnico</p></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"><h3 class="font-bold font-condensed text-lg">Genilda</h3><p class="text-sm text-gray-600">Especialista em Suprimentos</p></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"><h3 class="font-bold font-condensed text-lg">Patrícia</h3><p class="text-sm text-gray-600">Analista de Qualidade</p></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"><h3 class="font-bold font-condensed text-lg">Lara Julia</h3><p class="text-sm text-gray-600">Gerente de Vendas</p></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"><h3 class="font-bold font-condensed text-lg">Ranya</h3><p class="text-sm text-gray-600">Gerente de Marketing</p></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"><h3 class="font-bold font-condensed text-lg">Maria Socorro</h3><p class="text-sm text-gray-600">Designer & Conteúdo</p></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"><h3 class="font-bold font-condensed text-lg">Ana Claudia</h3><p class="text-sm text-gray-600">Gerente de Logística</p></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"><h3 class="font-bold font-condensed text-lg">Kaylane</h3><p class="text-sm text-gray-600">Gerente Financeira</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="custos" class="py-20 px-6 bg-white">
+            <div class="container mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold font-condensed text-brand-dark">ANÁLISE FINANCEIRA</h2>
+                    <p class="text-gray-600 mt-2 max-w-3xl mx-auto">Transparência nos custos e uma proposta de valor clara. Nosso modelo de negócio é focado em acessibilidade sem comprometer a qualidade profissional.</p>
+                </div>
+                <div class="grid lg:grid-cols-5 gap-8 items-center">
+                    <div class="lg:col-span-3 bg-brand-accent p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4 text-center font-condensed">DISTRIBUIÇÃO DE CUSTOS (MODELO ARTESANAL)</h3>
+                        <div class="chart-container" style="position: relative; height:45vh; width:100%; max-width: 700px; margin: auto;">
+                            <canvas id="costsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 space-y-4">
+                        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                            <h4 class="text-lg font-condensed font-bold text-gray-500">Custo por Unidade</h4>
+                            <p class="text-3xl font-bold text-brand-dark">R$ 200,00</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                            <h4 class="text-lg font-condensed font-bold text-gray-500">Preço de Venda Sugerido</h4>
+                            <p class="text-3xl font-bold text-brand-dark">R$ 380,00</p>
+                        </div>
+                        <div class="bg-brand-primary p-6 rounded-lg shadow-md text-center">
+                            <h4 class="text-lg font-condensed font-bold text-brand-dark/70">Lucro Estimado</h4>
+                            <p class="text-3xl font-bold text-brand-dark">R$ 180,00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="galeria" class="py-20 px-6 bg-brand-accent">
             <div class="container mx-auto">
                  <div class="text-center mb-12">
                     <h2 class="text-4xl font-bold font-condensed text-brand-dark">GALERIA DE IMAGENS</h2>
-                    <p class="text-gray-600 mt-2">Veja a InduGrind em detalhes.</p>
+                    <p class="text-gray-600 mt-2">Veja a InduGrind em detalhes, do protótipo ao produto final.</p>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="bg-white rounded-lg shadow-md overflow-hidden aspect-w-1 aspect-h-1">
@@ -215,169 +268,162 @@
     <footer class="bg-brand-dark text-gray-400 py-10">
         <div class="container mx-auto text-center">
             <p class="font-condensed text-lg text-white">INDUGRIND - FERRAMENTAS ARTESANAIS</p>
-            <p class="text-sm mt-2">© 2024 InduGrind. Todos os direitos reservados.</p>
+            <p class="text-sm mt-2">© 2025 InduGrind. Todos os direitos reservados.</p>
             <p class="text-sm">Uberlândia, MG - Brasil</p>
         </div>
     </footer>
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Lógica do Menu Mobile
+            // Data Store
+            const productData = {
+                artesanal: {
+                    title: 'Modelo Artesanal',
+                    description: 'Ideal para pequenas oficinas, marcenarias e artesãos que buscam uma ferramenta acessível, segura e de fácil manutenção, sem abrir mão da qualidade profissional.',
+                    image: 'http://googleusercontent.com/file_content/1',
+                    specs: {
+                        'Tipo': 'Lixadeira de cinta horizontal de bancada',
+                        'Motor': '1/4 HP (baixo custo e eficiente)',
+                        'Cinta': '915mm x 100mm (padrão)',
+                        'Estrutura': 'Aço reciclado ou MDF reforçado',
+                        'Segurança': 'Botão de desligamento rápido',
+                        'Diferencial': 'Ajuste de ângulo da cinta'
+                    }
+                },
+                industrial: {
+                    title: 'Modelo Industrial',
+                    description: 'Projetada para máxima eficiência e durabilidade em ambientes industriais. Com motor potente e design robusto, suporta uso intenso e contínuo.',
+                    image: 'http://googleusercontent.com/file_content/3',
+                    specs: {
+                        'Motor': '4KW de alta performance',
+                        'Velocidade': 'Ajustável até 33 m/s',
+                        'Cinta': '150mm x 2000mm',
+                        'Rolete': 'Ø200mm',
+                        'Peso': '45kg',
+                        'Tensão': '220V / 380V'
+                    }
+                }
+            };
+
+            // Mobile Menu
             const menuButton = document.getElementById('menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             menuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
-
-            // Lógica dos Cards de Features
-            const featureCards = document.querySelectorAll('.feature-card');
-            const featureDisplay = document.getElementById('feature-display');
-            const featureData = {
-                qualidade: {
-                    title: 'QUALIDADE SUPERIOR',
-                    text: 'Cada lixadeira é montada com o máximo de cuidado, utilizando os melhores materiais e tecnologia que garante um desempenho superior e acabamento impecável.'
-                },
-                inovacao: {
-                    title: 'INOVAÇÃO E SEGURANÇA',
-                    text: 'Nossos projetos incluem inovações como sistema de troca rápida de cinta e botão de desligamento de emergência, aliando alta produtividade com a máxima segurança para o operador.'
-                },
-                robustez: {
-                    title: 'ROBUSTEZ E CONFIANÇA',
-                    text: 'Construída para suportar o trabalho pesado do dia a dia. Queremos ser a marca de confiança no mercado, conhecida pela robustez de nossos produtos e pela excelência do nosso atendimento.'
-                }
-            };
-
-            featureCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    const featureKey = card.dataset.feature;
-                    const data = featureData[featureKey];
-                    
-                    featureCards.forEach(c => c.classList.remove('bg-yellow-100', 'border-brand-primary'));
-                    card.classList.add('bg-yellow-100', 'border-brand-primary');
-
-                    featureDisplay.innerHTML = `
-                        <div class="text-left">
-                            <h3 class="font-bold text-xl mb-2 font-condensed text-brand-dark">${data.title}</h3>
-                            <p class="text-gray-700">${data.text}</p>
-                        </div>
-                    `;
-                });
-            });
-
-            // Lógica do Seletor de Materiais
-            const materialButtons = document.querySelectorAll('.material-btn');
-            const materialTitle = document.getElementById('material-title');
-            const materialContent = document.getElementById('material-content');
-            const materialData = {
-                madeira: {
-                    title: 'Trabalho em Madeira',
-                    abrasivo: 'Óxido de Alumínio',
-                    descricao: 'É o grão mais versátil e comum, ideal para todos os tipos de madeira, desde o desbaste inicial até o acabamento fino.',
-                    graos: {
-                        'Desbaste Pesado (Grãos 36-60)': 'Remoção rápida de material e nivelamento de superfícies brutas.',
-                        'Lixamento Intermediário (Grãos 80-120)': 'Prepara a superfície, remove marcas do desbaste e alisa a madeira.',
-                        'Acabamento Fino (Grãos 150-220)': 'Cria uma superfície lisa, pronta para receber seladores, vernizes ou tintas.'
-                    }
-                },
-                metais_ferrosos: {
-                    title: 'Trabalho em Metais Ferrosos (Aço, Ferro)',
-                    abrasivo: 'Zircônia ou Cerâmica',
-                    descricao: 'Estes grãos são mais duráveis e agressivos, perfeitos para o desbaste pesado em metais duros. A cerâmica é autoafiável, ideal para alta performance.',
-                     graos: {
-                        'Remoção de Solda/Rebarba (Grãos 36-80)': 'Desbaste agressivo para limpar e nivelar cordões de solda e remover rebarbas.',
-                        'Preparação de Superfície (Grãos 100-150)': 'Cria uma textura uniforme para pintura ou outros revestimentos.',
-                        'Acabamento (Grãos 180+)': 'Para um acabamento mais liso e acetinado no metal.'
-                    }
-                },
-                nao_ferrosos: {
-                    title: 'Trabalho em Não Ferrosos (Alumínio, Latão) e Plásticos',
-                    abrasivo: 'Carbeto de Silício',
-                    descricao: 'Conhecido por ser muito afiado, este grão corta rapidamente materiais mais macios sem gerar calor excessivo, evitando o empastamento da lixa.',
-                     graos: {
-                        'Desbaste (Grãos 60-100)': 'Remoção de imperfeições e modelagem inicial.',
-                        'Acabamento (Grãos 120-400)': 'Suavização da superfície para um acabamento limpo e polido.'
-                    }
-                },
-                ceramica: {
-                    title: 'Trabalho em Cerâmica, Vidro e Ligas Especiais',
-                    abrasivo: 'Cerâmica ou Carbeto de Silício',
-                    descricao: 'Grãos cerâmicos são extremamente duros e ideais para metais de alta resistência. O Carbeto de Silício é eficaz para materiais frágeis como vidro e cerâmica.',
-                     graos: {
-                        'Modelagem (Grãos 60-120)': 'Para dar forma e remover excessos em materiais duros.',
-                        'Polimento (Grãos 220+)': 'Para obter um acabamento de alta qualidade e brilho.'
-                    }
-                }
-            };
-
-            materialButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const materialKey = button.dataset.material;
-                    const data = materialData[materialKey];
-                    
-                    materialButtons.forEach(btn => {
-                        btn.classList.remove('bg-brand-primary', 'text-brand-dark');
-                        btn.classList.add('bg-white');
-                    });
-                    button.classList.add('bg-brand-primary', 'text-brand-dark');
-                    button.classList.remove('bg-white');
-
-                    materialTitle.textContent = data.title;
-                    let contentHTML = `<p class="mb-4"><strong>Abrasivo Recomendado:</strong> ${data.abrasivo}. ${data.descricao}</p>`;
-                    contentHTML += '<div class="space-y-3">';
-                    for (const [key, value] of Object.entries(data.graos)) {
-                        contentHTML += `<div><strong class="font-semibold text-gray-800">${key}:</strong> <span class="text-gray-600">${value}</span></div>`;
-                    }
-                    contentHTML += '</div>';
-                    materialContent.innerHTML = contentHTML;
-                });
-            });
             
-            // Lógica do Diagrama Interativo
-            const hotspots = document.querySelectorAll('.hotspot');
-            const componentTitle = document.getElementById('component-title');
-            const componentText = document.getElementById('component-text');
-            const componentInfoCard = document.querySelector('.component-info-card');
+            // Product Toggle
+            const btnArtesanal = document.getElementById('btn-artesanal');
+            const btnIndustrial = document.getElementById('btn-industrial');
+            const productImage = document.getElementById('product-image');
+            const productTitle = document.getElementById('product-title');
+            const productDescription = document.getElementById('product-description');
+            const productSpecs = document.getElementById('product-specs');
 
-            const componentData = {
-                rolo_acionamento: {
-                    title: 'Rolo de Acionamento',
-                    text: 'Conectado diretamente ao motor, este rolo é responsável por tracionar e mover a cinta de lixa em alta velocidade. É a peça que transfere a potência do motor para a lixa.'
-                },
-                rolo_tensao: {
-                    title: 'Rolo de Tensão e Guia',
-                    text: 'Localizado na extremidade oposta, sua função é manter a cinta de lixa perfeitamente esticada e alinhada. Possui um sistema de ajuste para facilitar a troca da lixa e garantir um lixamento uniforme.'
-                },
-                chassi: {
-                    title: 'Chassi Principal',
-                    text: 'A base da máquina, geralmente feita de aço robusto, que oferece a solidez necessária para suportar as vibrações e a força do motor, garantindo estabilidade durante o uso.'
-                },
-                mesa_trabalho: {
-                    title: 'Mesa de Trabalho',
-                    text: 'Uma superfície plana e resistente onde a peça a ser lixada é apoiada. Em muitos modelos, é ajustável, permitindo que o operador realize lixamentos precisos em diferentes ângulos.'
-                },
-                motor_placeholder: {
-                    title: 'Motor de Alta Performance',
-                    text: 'O coração da lixadeira. Fornece a potência necessária para girar a cinta de lixa. Em modelos industriais, são projetados para uso contínuo e intenso.'
+            function updateProductView(model) {
+                const data = productData[model];
+                productImage.src = data.image;
+                productImage.alt = `Lixadeira InduGrind ${data.title}`;
+                productTitle.textContent = data.title;
+                productDescription.textContent = data.description;
+                
+                productSpecs.innerHTML = '';
+                for (const [key, value] of Object.entries(data.specs)) {
+                    const specEl = document.createElement('div');
+                    specEl.className = 'bg-brand-accent p-3 rounded-md';
+                    specEl.innerHTML = `<strong class="font-semibold text-brand-secondary block">${key}:</strong><span>${value}</span>`;
+                    productSpecs.appendChild(specEl);
                 }
-            };
 
-            hotspots.forEach(hotspot => {
-                hotspot.addEventListener('click', () => {
-                    const componentKey = hotspot.dataset.component;
-                    const data = componentData[componentKey];
-                    
-                    componentInfoCard.style.opacity = '0';
-                    componentInfoCard.style.transform = 'translateY(10px)';
+                if (model === 'artesanal') {
+                    btnArtesanal.classList.add('bg-brand-primary', 'text-brand-dark');
+                    btnArtesanal.classList.remove('bg-white', 'text-brand-secondary');
+                    btnIndustrial.classList.add('bg-white', 'text-brand-secondary');
+                    btnIndustrial.classList.remove('bg-brand-primary', 'text-brand-dark');
+                } else {
+                    btnIndustrial.classList.add('bg-brand-primary', 'text-brand-dark');
+                    btnIndustrial.classList.remove('bg-white', 'text-brand-secondary');
+                    btnArtesanal.classList.add('bg-white', 'text-brand-secondary');
+                    btnArtesanal.classList.remove('bg-brand-primary', 'text-brand-dark');
+                }
+            }
 
-                    setTimeout(() => {
-                        componentTitle.textContent = data.title;
-                        componentText.textContent = data.text;
-                        componentInfoCard.style.opacity = '1';
-                        componentInfoCard.style.transform = 'translateY(0)';
-                    }, 300);
-                });
+            btnArtesanal.addEventListener('click', () => updateProductView('artesanal'));
+            btnIndustrial.addEventListener('click', () => updateProductView('industrial'));
+            updateProductView('artesanal'); // Initial view
+
+            // Chart.js Configuration
+            Chart.defaults.font.family = "'Roboto', sans-serif";
+            Chart.defaults.color = '#4A5568';
+
+            // Market Segment Chart
+            const marketSegmentCtx = document.getElementById('marketSegmentChart').getContext('2d');
+            new Chart(marketSegmentCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Equip. de Precisão', 'Lixadeiras Artesanais', 'Acessórios', 'Lixadeiras Industriais', 'Ferramentas Manuais'],
+                    datasets: [{
+                        label: 'Crescimento do Segmento (%)',
+                        data: [90, 80, 75, 65, 40],
+                        backgroundColor: 'rgba(251, 191, 36, 0.8)',
+                        borderColor: 'rgba(251, 191, 36, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { x: { beginAtZero: true, ticks: { callback: value => value + "%" } } },
+                    plugins: { legend: { display: false } }
+                }
             });
 
+            // Market Growth Chart
+            const marketGrowthCtx = document.getElementById('marketGrowthChart').getContext('2d');
+            new Chart(marketGrowthCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2022', '2023', '2024', '2025', '2026', '2027'],
+                    datasets: [{
+                        label: 'Mercado de Lixadeiras e Abrasivos (R$ Bi)',
+                        data: [19, 20, 21, 22.5, 23.8, 25],
+                        backgroundColor: 'rgba(251, 191, 36, 0.2)',
+                        borderColor: 'rgba(251, 191, 36, 1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: false } },
+                    plugins: { legend: { display: true, position: 'bottom' } }
+                }
+            });
+
+            // Costs Chart
+            const costsCtx = document.getElementById('costsChart').getContext('2d');
+            new Chart(costsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Motor', 'Polias', 'Estrutura', 'Cinta', 'Custos Operacionais', 'Fixadores', 'Botão', 'Fiação', 'Pintura'],
+                    datasets: [{
+                        label: 'Valor (R$)',
+                        data: [80, 30, 25, 20, 20, 10, 5, 5, 5],
+                        backgroundColor: 'rgba(26, 32, 44, 0.8)',
+                        borderColor: 'rgba(26, 32, 44, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, ticks: { callback: value => `R$ ${value}` } } },
+                    plugins: { legend: { display: false } }
+                }
+            });
         });
     </script>
 </body>
